@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+
+# Secrets
+.env
+
+# Inspect eval logs (large; summary results are committed separately)
+logs/
+
+# Personal reference material, not for redistribution
+*.pdf
+MATS streams.csv
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+LEARNING_LOG.md
+
