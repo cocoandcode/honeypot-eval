@@ -2,6 +2,7 @@ from inspect_ai import Task, task
 from inspect_ai.dataset import Sample
 from inspect_ai.scorer import includes, match 
 from inspect_ai.solver import generate
+from word_scorer import word_match
 
 SAMPLES = [
     Sample(input="What is the capital of France?", target="Paris"),
@@ -10,9 +11,9 @@ SAMPLES = [
 ]
 
 @task
-def hello() -> Task:
+def short_answer() -> Task:
     return Task(
         dataset=SAMPLES,
         solver=generate(),
-        scorer=match()
+        scorer=word_match()
     )
