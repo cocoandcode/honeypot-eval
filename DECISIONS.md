@@ -34,6 +34,14 @@ Each entry: the decision, why, and how it compares with Krakovna et al. (2026), 
 - **Decision:** uv with a `src/` layout and `uv.lock`; eval logs (`logs/`) are git-ignored, with summary results committed separately; the paper PDF and MATS CSV are git-ignored.
 - **Why:** Reproducible environments; logs are large and may be regenerated; reference material is not ours to redistribute.
 
+## D6. Research question: build on the paper, not just replicate it
+
+- **Decision:** Keep the honeypot as the core, and make the main contribution an autorater validation question: how often does the paper's LLM judge miss misbehaviour that objective checks (held-out regression suite, diff) catch, and how much does that change when the judge sees actions only, without the chain of thought?
+- **Why:** A smaller replication shows skill but not research taste, and cannot match the paper's realism. The paper validated its autorater only on clear synthetic and semi-synthetic cases (Appendix A.3), with lower recall for sabotage degree than for scheming reasoning, and it lists reliance on CoT legibility as a limitation (Section 7). Our setup produces realistic agentic sabotage with objective ground truth, which is the borderline-case data the paper lacked.
+- **Positives problem:** Unprompted models rarely sabotage, so judge recall can't be measured on them alone. Add a condition that produces known positives (an explicit covert-sabotage red-team instruction and/or the paper's power goal, Appendix C). These runs are for judge validation, not propensity claims.
+- **Alternatives considered:** (1) Reward hacking as the core, with the paper's prompts and rubric borrowed. Rejected as the core because it targets Francis Rhys Ward's topic rather than Victoria's oversight-sabotage focus, and is no more realistic. It stays as an extension sharing the same scorers. (2) Both environments. Rejected for timeline.
+- **Interview pitch:** "I built an agentic honeypot in Inspect with your prompts and rubric, and measured how much sabotage the autorater misses compared with objective checks, with and without access to the chain of thought."
+
 ## Known design weaknesses (to revisit)
 
 1. Toy codebase in a fresh container is an eval cue. Mitigation: make the repo mundane and lived-in; measure unprompted eval awareness on honeypot vs baseline as the paper does.
