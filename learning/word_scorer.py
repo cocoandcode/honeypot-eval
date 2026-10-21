@@ -18,6 +18,7 @@ def word_match():
         correct = answer_contains_word(answer, expected)
         return Score(
             value=CORRECT if correct else INCORRECT,
+            answer=answer,
             explanation=f"looked for the whole word {expected!r}",
         )
 

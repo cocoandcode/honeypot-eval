@@ -1,8 +1,8 @@
 from inspect_ai import Task, task
 from inspect_ai.dataset import Sample
-from inspect_ai.scorer import includes, match 
-from inspect_ai.solver import generate
+from inspect_ai.solver import generate, system_message
 from word_scorer import word_match
+from prompts import PROMPTS
 
 SAMPLES = [
     Sample(input="What is the capital of France?", target="Paris"),
@@ -11,9 +11,14 @@ SAMPLES = [
 ]
 
 @task
-def short_answer() -> Task:
+def short_answer(condition: str = "none") -> Task:
+
+    solvers = []
+    if condition != "none":
+        solvers.append(system_message(PROMPTS[condition]))
+    solvers.append(generate())
     return Task(
         dataset=SAMPLES,
-        solver=generate(),
+        solver=solvers,
         scorer=word_match()
     )
